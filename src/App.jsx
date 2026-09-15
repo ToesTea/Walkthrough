@@ -1,6 +1,5 @@
 import { useRef, useState } from "react";
 import { Canvas } from "@react-three/fiber";
-import { PointerLockControls } from "@react-three/drei";
 
 import { StartScreen } from "./components/ui/StartScreen";
 import { Scene } from "./components/global/Scene";
@@ -17,10 +16,10 @@ function App() {
   return (
     <div className="relative w-screen h-screen">
       <Canvas
-        camera={{
+        /*camera={{
           position: [0, 2, 5],
           fov: 45,
-        }}
+        }}*/
         shadows
       >
         <Scene

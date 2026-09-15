@@ -1,3 +1,4 @@
+import AudioTable from "../models/AudioTable";
 import MedtLab from "../models/MedtLab";
 import Lights from "./Lights";
 import {
@@ -16,6 +17,11 @@ export function Scene({ gameStarted, controlsRef }) {
       <Lights />
 
       <MedtLab />
+      <AudioTable 
+        scale={1}
+        position={[-4.5, 0, -3.5]}
+        rotation={[0, Math.PI /2, 0]}
+      />
 
       <PointerLockControls
         ref={controlsRef}

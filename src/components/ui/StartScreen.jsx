@@ -1,8 +1,7 @@
-import { useEffect, useState } from "react";
 import { useProgress } from "@react-three/drei";
 
 export function StartScreen({ gameStarted, onStart }) {
-  const {active, progress} = useProgress();
+  const {progress} = useProgress();
 
   function handleClick() {
     if (progress >= 100) {
