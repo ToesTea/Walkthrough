@@ -1,17 +1,11 @@
 import { useProgress } from "@react-three/drei";
 
-export function StartScreen({ gameStarted, onStart }) {
+export function StartScreen() {
   const {progress} = useProgress();
-
-  function handleClick() {
-    if (progress >= 100) {
-      onStart();
-    }
-  }
+  const gameStarted = progress >= 100;
 
   return (
     <div
-      onClick={handleClick}
       className={`
         absolute inset-0 z-50
         bg-gray-900 text-white
@@ -28,9 +22,7 @@ export function StartScreen({ gameStarted, onStart }) {
       <div className="w-1/2 text-center">
 
         <p className="text-8xl mb-6 select-none">
-          {progress < 100
-            ? `${progress.toFixed(0)}%`
-            : "Click to Start"}
+            {`${progress.toFixed(0)}%`}
         </p>
 
         <div

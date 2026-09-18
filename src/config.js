@@ -1,0 +1,1 @@
+export const STATIC_MODEL_PATH = '../../../public/assets/models/static'

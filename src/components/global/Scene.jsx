@@ -1,12 +1,15 @@
-import AudioTable from "../models/AudioTable";
+import * as Config from "../../config.js"
+import { useRef } from "react";
+import StaticModel from "../models/StaticModel";
 import MedtLab from "../models/MedtLab";
 import Lights from "./Lights";
 import {
   Environment,
-  PointerLockControls,
 } from "@react-three/drei";
 
-export function Scene({ gameStarted, controlsRef }) {
+export function Scene() {
+  const AudioTableRef = useRef();
+
   return (
     <>
       <Environment
@@ -17,16 +20,13 @@ export function Scene({ gameStarted, controlsRef }) {
       <Lights />
 
       <MedtLab />
-      <AudioTable 
-        scale={1}
+      <StaticModel
+        ref={AudioTableRef}
         position={[-4.5, 0, -3.5]}
         rotation={[0, Math.PI /2, 0]}
+        path={`${Config.STATIC_MODEL_PATH}/AudioTable.glb`}
       />
 
-      <PointerLockControls
-        ref={controlsRef}
-        enabled={gameStarted}
-      />
     </>
   );
 }
