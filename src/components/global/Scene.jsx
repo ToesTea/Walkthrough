@@ -6,6 +6,8 @@ import Lights from "./Lights";
 import {
   Environment,
 } from "@react-three/drei";
+import { CameraMovement } from "../ui/CameraMovement.jsx";
+import MainCamera from "../models/Camera.jsx";
 
 export function Scene() {
   const AudioTableRef = useRef();
@@ -18,6 +20,9 @@ export function Scene() {
       />
 
       <Lights />
+
+      <MainCamera />
+      <CameraMovement />
 
       <MedtLab />
       <StaticModel
