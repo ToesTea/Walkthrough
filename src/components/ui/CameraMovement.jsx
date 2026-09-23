@@ -15,7 +15,7 @@ export function CameraMovement() {
         if (x === null || y === null) return;
 
         let moveX = 0;
-        let moveY = 0;
+        //let moveY = 0;
 
         if (x < area.x) {
             moveX = -(area.x - x) / area.x;
@@ -23,13 +23,13 @@ export function CameraMovement() {
             moveX = (x - (window.innerWidth - area.x)) / area.x;
         }
 
-        if (y < area.y) {
+        /*if (y < area.y) {
             moveY = -(area.y - y) / area.y;
         } else if (y > window.innerHeight - area.y) {
             moveY = (y - (window.innerHeight - area.y)) / area.y;
-        }
-
-        camera.rotation.y -= moveX * SPEED * delta;
+        }*/
+        const amount = 1 - Math.exp(-SPEED * delta);
+        camera.rotation.y -= moveX * amount;
     });
 
     return null;

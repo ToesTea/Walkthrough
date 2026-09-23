@@ -4,8 +4,17 @@ import { Scene } from "./components/global/Scene";
 
 function App() {
 
+    const handleBottomClick = (event) => {
+        if (event.clientY > window.innerHeight * 0.75) {
+            window.dispatchEvent(new CustomEvent("dolly"));
+        }
+    };
+
   return (
-    <div className="relative w-screen h-screen">
+    <div
+      className="relative w-screen h-screen"
+      onClickCapture={handleBottomClick}
+    >
       <Canvas shadows>
         <Scene/>
       </Canvas>

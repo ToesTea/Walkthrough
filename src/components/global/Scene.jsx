@@ -1,6 +1,5 @@
-import * as Config from "../../config.js"
-import { useRef } from "react";
-import StaticModel from "../models/StaticModel";
+//import * as Config from "../../config.js"
+//import { useRef, useState } from "react";
 import MedtLab from "../models/MedtLab";
 import Lights from "./Lights";
 import {
@@ -8,9 +7,9 @@ import {
 } from "@react-three/drei";
 import { CameraMovement } from "../ui/CameraMovement.jsx";
 import MainCamera from "../models/Camera.jsx";
+import ModelLoader from "../models/ModelLoader.jsx";
 
 export function Scene() {
-  const AudioTableRef = useRef();
 
   return (
     <>
@@ -25,12 +24,7 @@ export function Scene() {
       <CameraMovement />
 
       <MedtLab />
-      <StaticModel
-        ref={AudioTableRef}
-        position={[-4.5, 0, -3.5]}
-        rotation={[0, Math.PI /2, 0]}
-        path={`${Config.STATIC_MODEL_PATH}/AudioTable.glb`}
-      />
+      <ModelLoader />
 
     </>
   );
