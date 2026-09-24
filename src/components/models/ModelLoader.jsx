@@ -1,6 +1,6 @@
 import * as Config from "../../config.js"
 import { useRef, useState } from "react";
-import StaticModel from "../models/StaticModel";
+import StaticModel from "./Model.jsx";
 
 function ModelLoader() {
   const AudioTableRef = useRef();

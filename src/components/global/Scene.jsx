@@ -2,6 +2,7 @@
 //import { useRef, useState } from "react";
 import MedtLab from "../models/MedtLab";
 import Lights from "./Lights";
+import { useFrame } from "@react-three/fiber";
 import {
   Environment,
 } from "@react-three/drei";
@@ -9,7 +10,7 @@ import { CameraMovement } from "../ui/CameraMovement.jsx";
 import MainCamera from "../models/Camera.jsx";
 import ModelLoader from "../models/ModelLoader.jsx";
 
-export function Scene() {
+export function Scene() { 
 
   return (
     <>

@@ -1,4 +1,3 @@
-import * as Config from "../../config.js"
 import { useGLTF } from '@react-three/drei';
 import useBoundingBox from '../../hooks/BoundingBox.jsx';
 import { useEffect, useState } from "react";
@@ -9,7 +8,7 @@ function StaticModel(
         position=[0, 0, 0], 
         scale=1, 
         rotation=[0, 0, 0], 
-        path=`${Config.STATIC_MODEL_PATH}/default.glb`,
+        path,
         getNodes
     }, ref) {
     const { scene, nodes } = useGLTF(path);
@@ -17,7 +16,10 @@ function StaticModel(
     const [dollyObject, setDollyObject] = useState(null);
     const [dollyCamera, setDollyCamera] = useState(null);
 
-    useDollyShot(dollyCamera, dollyObject);
+    useDollyShot(dollyCamera, dollyObject, () => {
+      setDollyCamera(null);
+      setDollyObject(null);
+    });
 
     useEffect(() => {
         if (getNodes) getNodes(nodes);
