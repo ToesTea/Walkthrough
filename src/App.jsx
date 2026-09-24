@@ -1,15 +1,26 @@
 import { Canvas } from "@react-three/fiber";
-import { StartScreen } from "./components/ui/StartScreen";
+import { LoadingScreen } from "./components/ui/LoadingScreen";
 import { Scene } from "./components/global/Scene";
 import { Suspense } from "react";
+import { isDollyActive, startDolly } from "./hooks/dollyLock.js";
 
 function App() {
 
     const handleBottomClick = (event) => {
-        if (event.clientY > window.innerHeight * 0.75) {
-          event.stopPropagation();
-          window.dispatchEvent(new CustomEvent("dolly"));
+        const isBottomClick = event.clientY > window.innerHeight * 0.75;
+
+        if (!isBottomClick) {
+          if (isDollyActive()) {
+            event.stopPropagation();
+          }
+            return;
         }
+
+        event.stopPropagation();
+
+        if (!startDolly()) return;
+
+        window.dispatchEvent(new CustomEvent("dolly"));
     };
 
   return (
@@ -22,10 +33,10 @@ function App() {
         shadows={false}  
       >
         <Suspense fallback={null}>
-          <Scene/>
+          <Scene />
         </Suspense>
       </Canvas>
-      <StartScreen />
+      <LoadingScreen />
     </div>
   );
 }

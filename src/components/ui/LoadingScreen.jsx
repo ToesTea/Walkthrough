@@ -1,6 +1,6 @@
 import { useProgress } from "@react-three/drei";
 
-export function StartScreen() {
+export function LoadingScreen() {
   const {progress} = useProgress();
   const gameStarted = progress >= 100;
 

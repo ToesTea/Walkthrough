@@ -3,6 +3,7 @@ import { useThree } from "@react-three/fiber";
 import { useEffect, useState } from "react";
 import useDollyShot from '../../hooks/DollyShot';
 import { ROOM_MODEL_PATH } from '../../config.js';
+import { completeDolly } from '../../hooks/dollyLock.js';
 
 function MainCamera() {
     const { cameras, nodes } = useGLTF(ROOM_MODEL_PATH);
@@ -14,6 +15,7 @@ function MainCamera() {
     useDollyShot(dollyCamera, dollyObject, () => {
         setDollyCamera(null);
         setDollyObject(null);
+        completeDolly();
     });
 
     useEffect(() => {

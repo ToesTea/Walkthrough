@@ -38,8 +38,8 @@ function useDollyShot(anchorCamera, anchorObject, onComplete) {
         camera.quaternion.slerp(lookQuaternion, amount);
 
         if (
-            camera.position.distanceTo(targetPosition.camera) < 0.01 &&
-            camera.quaternion.angleTo(lookQuaternion) < 0.01
+            camera.position.distanceTo(targetPosition.camera) < 0.001 &&
+            camera.quaternion.angleTo(lookQuaternion) < 0.001
         ) {
             camera.position.copy(targetPosition.camera);
             camera.quaternion.copy(lookQuaternion);

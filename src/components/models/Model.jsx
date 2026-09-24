@@ -2,6 +2,7 @@ import { useGLTF } from '@react-three/drei';
 import useBoundingBox from '../../hooks/BoundingBox.jsx';
 import { useEffect, useState } from "react";
 import useDollyShot from "../../hooks/DollyShot.jsx";
+import { completeDolly, startDolly } from "../../hooks/dollyLock.js";
 
 function StaticModel(
     { 
@@ -17,8 +18,9 @@ function StaticModel(
     const [dollyCamera, setDollyCamera] = useState(null);
 
     useDollyShot(dollyCamera, dollyObject, () => {
-      setDollyCamera(null);
-      setDollyObject(null);
+        setDollyCamera(null);
+        setDollyObject(null);
+        completeDolly();
     });
 
     useEffect(() => {
@@ -33,9 +35,14 @@ function StaticModel(
         rotation={rotation}
         onClick={(e) => {
             e.stopPropagation();
-            setDollyCamera(nodes.CameraAnchor ?? null);
-            setDollyObject(nodes.ObjectAnchor ?? null);
-            console.log("Mesh clicked!")
+
+            const Camera = nodes.CameraAnchor;
+            const Object = nodes.ObjectAnchor;
+
+            if (!Camera || !Object || !startDolly()) return;
+
+            setDollyCamera(Camera);
+            setDollyObject(Object);
         }}
         >
       <primitive object={scene} />
