@@ -1,6 +1,7 @@
 import { Canvas } from "@react-three/fiber";
 import { StartScreen } from "./components/ui/StartScreen";
 import { Scene } from "./components/global/Scene";
+import { Suspense } from "react";
 
 function App() {
 
@@ -20,7 +21,9 @@ function App() {
         dpr={1}
         shadows={false}  
       >
-        <Scene/>
+        <Suspense fallback={null}>
+          <Scene/>
+        </Suspense>
       </Canvas>
       <StartScreen />
     </div>
