@@ -1,13 +1,17 @@
 import { Canvas } from "@react-three/fiber";
+import { useState } from "react";
 import { LoadingScreen } from "./components/ui/LoadingScreen";
 import { Scene } from "./components/global/Scene";
 import { Suspense } from "react";
 import { isDollyActive, startDolly } from "./hooks/dollyLock.js";
+import InfoWindow from "./components/ui/InfoWindow.jsx";
 
 function App() {
+  const [activeAnimation, setActiveAnimation] = useState(null);
+  const [sceneReady, setSceneReady] = useState(false);
 
     const handleBottomClick = (event) => {
-        const isBottomClick = event.clientY > window.innerHeight * 0.75;
+        const isBottomClick = event.clientY > window.innerHeight * 0.90;
 
         if (!isBottomClick) {
           if (isDollyActive()) {
@@ -25,7 +29,7 @@ function App() {
 
   return (
     <div
-      className="relative w-screen h-screen"
+      className="relative h-screen w-screen bg-gray-900"
       onClickCapture={handleBottomClick}
     >
       <Canvas
@@ -33,10 +37,14 @@ function App() {
         shadows={false}  
       >
         <Suspense fallback={null}>
-          <Scene />
+          <Scene
+            onAnimationStateChange={setActiveAnimation}
+            onSceneReady={setSceneReady}
+          />
         </Suspense>
       </Canvas>
-      <LoadingScreen />
+      <LoadingScreen sceneReady={sceneReady} />
+      <InfoWindow animationState={activeAnimation} />
     </div>
   );
 }

@@ -11,7 +11,7 @@ import ModelLoader from "../models/ModelLoader.jsx";
 import { HDRI_PATH } from "../../config.js";
 import { useThree } from "@react-three/fiber";
 
-function ShaderWarmup() {
+function ShaderWarmup({ onSceneReady }) {
   const { gl, scene, camera } = useThree();
 
   useEffect(() => {
@@ -20,18 +20,21 @@ function ShaderWarmup() {
     gl.compileAsync(scene, camera).then(() => {
       if (!cancelled) {
         console.log("Shaders compiled");
+        requestAnimationFrame(() => onSceneReady?.(true));
       }
     });
 
     return () => {
       cancelled = true;
     };
-  }, [gl, scene, camera]);
+  }, [gl, scene, camera, onSceneReady]);
 
   return null;
 }
 
-export function Scene() { 
+
+export function Scene({ onAnimationStateChange, onSceneReady }) {
+
   return (
     <>
       <Environment
@@ -45,10 +48,9 @@ export function Scene() {
       <CameraMovement />
 
       <MedtLab />
-      <ModelLoader />
+      <ModelLoader onAnimationStateChange={onAnimationStateChange} />
 
-      <ShaderWarmup />
-
+      <ShaderWarmup onSceneReady={onSceneReady} />
     </>
   );
 }

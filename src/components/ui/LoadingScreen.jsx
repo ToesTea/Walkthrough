@@ -1,9 +1,8 @@
 import { useProgress } from "@react-three/drei";
-
-export function LoadingScreen() {
+export function LoadingScreen({ sceneReady }) {
   const {progress} = useProgress();
-  const gameStarted = progress >= 100;
-
+  const gameStarted = progress >= 100 && sceneReady;
+  const displayedProgress = sceneReady ? 100 : Math.min(progress, 99);
   return (
     <div
       className={`
@@ -22,7 +21,7 @@ export function LoadingScreen() {
       <div className="w-1/2 text-center">
 
         <p className="text-8xl mb-6 select-none">
-            {`${progress.toFixed(0)}%`}
+            {`${displayedProgress.toFixed(0)}%`}
         </p>
 
         <div
@@ -30,12 +29,12 @@ export function LoadingScreen() {
             w-full h-4
             bg-gray-600 rounded-2xl overflow-hidden
             transition-opacity duration-300
-            ${progress < 100 ? "opacity-100" : "opacity-0"}
+            ${gameStarted ? "opacity-0" : "opacity-100"}
           `}
         >
           <div
             className="h-full bg-white transition-all duration-100"
-            style={{ width: `${progress}%` }}
+            style={{ width: `${displayedProgress}%` }}
           />
         </div>
 

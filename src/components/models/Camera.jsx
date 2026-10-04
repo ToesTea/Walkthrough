@@ -3,7 +3,7 @@ import { useThree } from "@react-three/fiber";
 import { useEffect, useState } from "react";
 import useDollyShot from '../../hooks/DollyShot';
 import { ROOM_MODEL_PATH } from '../../config.js';
-import { completeDolly } from '../../hooks/dollyLock.js';
+import { completeDolly, exitModel, isOnModel } from '../../hooks/dollyLock.js';
 
 function MainCamera() {
     const { cameras, nodes } = useGLTF(ROOM_MODEL_PATH);
@@ -26,6 +26,8 @@ function MainCamera() {
         const handleDolly = () => {
             setDollyCamera(nodes.CameraAnchor ?? null);
             setDollyObject(nodes.ObjectAnchor ?? null);
+            exitModel();
+            console.log(isOnModel());
         };
 
         window.addEventListener("dolly", handleDolly);

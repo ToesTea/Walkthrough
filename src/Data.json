@@ -1,0 +1,28 @@
+[
+  {
+    "id": "audio-table",
+    "title": "AudioTable",
+    "activatorNode": "OnButton",
+    "src": "https://www.youtube.com/embed/dQw4w9WgXcQ?si=Oed1PLvPEH6VoS04&autoplay=1&mute=1&controls=0",
+    "durationMinutes": 10,
+    "tags": ["Palmer", "DLZ", "Audio"],
+    "chapters": [
+      {
+        "name": "Palmer",
+        "start": 0,
+        "subset": [
+          { "subName": "AUX", "subStart": 10 },
+          { "subName": "Mute", "subStart": 15 }
+        ]
+      },
+      {
+        "name": "DLZ",
+        "start": 210,
+        "subset": [
+          { "subName": "Buttons", "subStart": 220 },
+          { "subName": "Sliders", "subStart": 250 }
+        ]
+      }
+    ]
+  }
+]

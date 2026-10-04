@@ -1,4 +1,5 @@
 let dollyActive = false;
+let onModel = false;
 
 export function startDolly() {
     if (dollyActive) return false;
@@ -13,4 +14,16 @@ export function completeDolly() {
 
 export function isDollyActive() {
     return dollyActive;
+}
+
+export function enterModel() {
+    onModel = true;
+}
+
+export function exitModel() {
+    onModel = false;
+}
+ 
+export function isOnModel() {
+    return onModel;
 }
