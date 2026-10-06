@@ -1,13 +1,13 @@
-import { useEffect, useMemo } from "react"; // CHANGED: added useMemo
-import { isOnModel } from "../dollyLock.js";
+import { useEffect, useMemo } from "react"; 
+import { isOnModel } from "../../stateHandler.js";
 import { useAnimations } from "@react-three/drei";
 import { LoopOnce } from "three";
 
 function useCustomAnimation(scene, node, animation, isActive) {
-    const clips = useMemo(() => (animation ? [animation] : []), [animation]); // ADDED
+    const clips = useMemo(() => (animation ? [animation] : []), [animation]); 
 
     const { actions } = useAnimations(
-        clips, // CHANGED: was animation ? [animation] : []
+        clips, 
         scene,
     )
     

@@ -1,7 +1,9 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import Model from "./Model.jsx";
 import useCustomAnimation from "../../hooks/interaction/Animation.jsx";
 import { STATIC_MODEL_PATH } from "../../config.js";
+import { isOnModel } from "../../stateHandler.js";
+// import useSlider from "../../hooks/interaction/Slider.jsx";
 
 function NodeAnimator({ scene, node, animation, isActive }) {
   useCustomAnimation(scene, node, animation, isActive);
@@ -9,15 +11,17 @@ function NodeAnimator({ scene, node, animation, isActive }) {
 }
 
 function ModelLoader({ onAnimationStateChange }) {
-  const AudioTableRef = useRef();
-  const PalmerRef = useRef();
   const [animatedNodes, setAnimatedNodes] = useState({});
 
   const handleModelClick = (clickedNode, modelData) => {
-    if (!clickedNode || !modelData) return;
+    if (!clickedNode || !modelData || !isOnModel()) return;
 
     let activeNode = clickedNode;
     let animation;
+
+    if (activeNode.name.includes("Slider")) {
+      return;
+    }
 
     while (activeNode) {
       animation = modelData.animations?.find(
@@ -59,19 +63,54 @@ function ModelLoader({ onAnimationStateChange }) {
       {animators}
 
       <Model
-        ref={AudioTableRef}
-        position={[-4.5, 0, -3.5]}
+        position={[-4.5, 0, -3.7]}
         rotation={[0, Math.PI / 2, 0]}
         path={`${STATIC_MODEL_PATH}/AudioTable.glb`}
         onClick={(clickedNode, modelData) => handleModelClick(clickedNode, modelData)}
       />
       <Model
-        ref={PalmerRef}
-        position={[-4.3, 0.78, -4.2]}
+        position={[-4.5, 0.78, -4.4]}
         rotation={[0, Math.PI / 2, 0]}
         path={`${STATIC_MODEL_PATH}/Palmer.glb`}
         onClick={(clickedNode, modelData) => handleModelClick(clickedNode, modelData)}
       />
+      <Model
+        position={[-4.7, 0, -5.5]}
+        rotation={[0, Math.PI / 2, 0]}
+        path={`${STATIC_MODEL_PATH}/Closet.glb`}
+        onClick={(clickedNode, modelData) => handleModelClick(clickedNode, modelData)}
+      />
+      <Model
+        position={[-4.3, 0, -3.7]}
+        rotation={[0, Math.PI / 2, 0]}
+        path={`${STATIC_MODEL_PATH}/Chair_Black.glb`}
+      />
+      <Model
+        position={[-1.2, 0, -5.5]}
+        rotation={[0, Math.PI / 2, 0]}
+        path={`${STATIC_MODEL_PATH}/Chair_Wood.glb`}
+      />
+      <Model
+        position={[-.5, 0, -5.5]}
+        rotation={[0, -Math.PI / 2, 0]}
+        path={`${STATIC_MODEL_PATH}/MixerTable.glb`}
+      />
+      <Model
+        position={[-4.4, 0.8, -3.95]}
+        rotation={[0, 0, 0]}
+        path={`${STATIC_MODEL_PATH}/DLZ.glb`}
+        onClick={(clickedNode, modelData) => handleModelClick(clickedNode, modelData)}
+      />
+      {/*<Model
+        position={[-3.5, 0, -5.5]}
+        rotation={[0, 100, 0]}
+        path={`${STATIC_MODEL_PATH}/LightBig.glb`}
+      />
+      <Model
+        position={[-2, 0, -5.5]}
+        rotation={[0, -Math.PI / 2 + 50, 0]}
+        path={`${STATIC_MODEL_PATH}/LightSmall.glb`}
+      />*/}
     </>
   );
 }

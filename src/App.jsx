@@ -3,8 +3,9 @@ import { useState } from "react";
 import { LoadingScreen } from "./components/ui/LoadingScreen";
 import { Scene } from "./components/global/Scene";
 import { Suspense } from "react";
-import { isDollyActive, startDolly } from "./hooks/dollyLock.js";
+import { isDollyActive, startDolly } from "./stateHandler.js";
 import InfoWindow from "./components/ui/InfoWindow.jsx";
+import MouseIndicator from "./components/ui/MouseIndicator.jsx";
 
 function App() {
   const [activeAnimation, setActiveAnimation] = useState(null);
@@ -45,6 +46,7 @@ function App() {
       </Canvas>
       <LoadingScreen sceneReady={sceneReady} />
       <InfoWindow animationState={activeAnimation} />
+      <MouseIndicator />
     </div>
   );
 }

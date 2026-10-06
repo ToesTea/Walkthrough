@@ -1,8 +1,8 @@
 import { useGLTF } from '@react-three/drei';
-import useBoundingBox from '../../hooks/BoundingBox.jsx';
 import { useEffect, useState } from "react";
-import useDollyShot from "../../hooks/DollyShot.jsx";
-import { completeDolly, enterModel, startDolly } from "../../hooks/dollyLock.js";
+import useDollyShot from "../../hooks/interaction/DollyShot.jsx";
+import useSlider from "../../hooks/interaction/Slider.jsx";
+import { completeDolly, enterModel, startDolly } from "../../stateHandler.js";
 
 function Model(
     { 
@@ -12,12 +12,11 @@ function Model(
         path,
         getNodes,
         onClick
-    }, ref) {
+    }) {
     const { scene, nodes, animations } = useGLTF(path);
-    const box = useBoundingBox(scene);
     const [dollyObject, setDollyObject] = useState(null);
     const [dollyCamera, setDollyCamera] = useState(null);
-    const [modelActive, setModelActive] = useState(false);
+    const sliderHandlers = useSlider(scene);
 
     useDollyShot(dollyCamera, dollyObject, () => {
         setDollyCamera(null);
@@ -29,21 +28,17 @@ function Model(
       getNodes?.({scene, nodes, animations})
     }, [scene, nodes, animations, getNodes])
 
-    useEffect(() => {
-      const handleDolly = () => setModelActive(false);
-
-      window.addEventListener("dolly", handleDolly);
-      return () => window.removeEventListener("dolly", handleDolly);
-    }, []);
-
   return (
-    <group 
-        ref={ref} 
+    <group
         position={position} 
         scale={scale}
         rotation={rotation}
+        {...sliderHandlers}
         onClick={(e) => {
           e.stopPropagation();
+
+          if (e.object.name.includes("Slider")) return;
+
           onClick?.(e.object, { scene, nodes, animations });
 
           const Camera = nodes.CameraAnchor;
@@ -54,15 +49,9 @@ function Model(
           setDollyCamera(Camera);
           setDollyObject(Object);
           enterModel();
-          setModelActive(true);
         }}
         >
       <primitive object={scene} />
-      {box && !modelActive && (
-        <box3Helper
-          args={[box, 'red']}
-        />
-      )}
     </group>
   );
 }

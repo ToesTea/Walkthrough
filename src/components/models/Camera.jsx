@@ -1,9 +1,9 @@
 import { useGLTF } from '@react-three/drei';
 import { useThree } from "@react-three/fiber";
 import { useEffect, useState } from "react";
-import useDollyShot from '../../hooks/DollyShot';
+import useDollyShot from '../../hooks/interaction/DollyShot.jsx';
 import { ROOM_MODEL_PATH } from '../../config.js';
-import { completeDolly, exitModel, isOnModel } from '../../hooks/dollyLock.js';
+import { completeDolly, exitModel, isOnModel } from '../../stateHandler.js';
 
 function MainCamera() {
     const { cameras, nodes } = useGLTF(ROOM_MODEL_PATH);

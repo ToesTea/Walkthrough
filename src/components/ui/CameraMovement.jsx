@@ -1,5 +1,6 @@
 import { useFrame } from "@react-three/fiber";
 import useMousePosition from "../../hooks/MousePosition";
+import { isOnModel, isDollyActive } from "../../stateHandler";
 
 
 export function CameraMovement() {
@@ -29,7 +30,9 @@ export function CameraMovement() {
             moveY = (y - (window.innerHeight - area.y)) / area.y;
         }*/
         const amount = 1 - Math.exp(-SPEED * delta);
-        camera.rotation.y -= moveX * amount;
+        if (!isOnModel() && !isDollyActive()) {
+            camera.rotation.y -= moveX * amount;
+        }
     });
 
     return null;
