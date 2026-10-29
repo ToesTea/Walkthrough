@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { Quaternion, Vector3 } from "three";
+import { Quaternion, Vector3, MathUtils } from "three";
 
 function useKnob(scene) {
     const knobDrag = useRef(null);
@@ -41,14 +41,19 @@ function useKnob(scene) {
 
     const onPointerMove = (event) => {
 		const drag = knobDrag.current;
+        const MIN_ANGLE = -Math.PI * 0.75;
+        const MAX_ANGLE = Math.PI * 0.75;
 		if (!drag || drag.pointerId !== event.pointerId) return;
 
 		event.stopPropagation();
+       
         
         const x = event.clientX - drag.startX;
+        const angle = MathUtils.clamp(x * 0.01, MIN_ANGLE, MAX_ANGLE);
+
         const rotation = new Quaternion().setFromAxisAngle(
             drag.rotationAxis,
-            x * 0.01,
+            angle,
         );
         drag.knob.quaternion.copy(drag.startQuaternion).multiply(rotation);
     }

@@ -14,14 +14,16 @@ function ModelLoader({ onAnimationStateChange }) {
   const [animatedNodes, setAnimatedNodes] = useState({});
 
   const handleModelClick = (clickedNode, modelData) => {
-    if (!clickedNode || !modelData || !isOnModel()) return;
-
     let activeNode = clickedNode;
+
+    if (!clickedNode || 
+        !modelData ||
+        !isOnModel() ||
+        activeNode.name.includes("Slider") ||
+        activeNode.name.includes("Knob")
+      ) return;
     let animation;
 
-    if (activeNode.name.includes("Slider")) {
-      return;
-    }
 
     while (activeNode) {
       animation = modelData.animations?.find(
@@ -96,11 +98,23 @@ function ModelLoader({ onAnimationStateChange }) {
         path={`${STATIC_MODEL_PATH}/MixerTable.glb`}
       />
       <Model
+        position={[-4.5, 0, -.6]}
+        rotation={[0, Math.PI / 2, 0]}
+        path={`${STATIC_MODEL_PATH}/ProductTable.glb`}
+      />
+      <Model
         position={[-4.4, 0.8, -3.95]}
         rotation={[0, 0, 0]}
         path={`${STATIC_MODEL_PATH}/DLZ.glb`}
         onClick={(clickedNode, modelData) => handleModelClick(clickedNode, modelData)}
       />
+      <Model
+        position={[-2.5, 0, -6]}
+        rotation={[0, -Math.PI / 2, 0]}
+        path={`${STATIC_MODEL_PATH}/Teleprompter.glb`}
+        onClick={(clickedNode, modelData) => handleModelClick(clickedNode, modelData)}
+      />
+       
       {/*<Model
         position={[-3.5, 0, -5.5]}
         rotation={[0, 100, 0]}
@@ -110,6 +124,11 @@ function ModelLoader({ onAnimationStateChange }) {
         position={[-2, 0, -5.5]}
         rotation={[0, -Math.PI / 2 + 50, 0]}
         path={`${STATIC_MODEL_PATH}/LightSmall.glb`}
+      />
+      <Model
+        position={[-3.5, 0, -5.5]}
+        rotation={[0, 0, 0]}
+        path={`${STATIC_MODEL_PATH}/Wall.glb`}
       />*/}
     </>
   );
