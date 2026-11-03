@@ -5,6 +5,7 @@ import useSlider from "../../hooks/interaction/Slider.jsx";
 import { completeDolly, enterModel, startDolly } from "../../stateHandler.js";
 import useKnob from '../../hooks/interaction/Knob.jsx';
 import mergeHandlers from '../interactions/MergeHandlers.jsx';
+import useLever from '../../hooks/interaction/Lever.jsx';
 
 function Model(
     { 
@@ -20,7 +21,8 @@ function Model(
     const [dollyCamera, setDollyCamera] = useState(null);
     const sliderHandlers = useSlider(scene);
     const knobHandlers = useKnob(scene);
-    const pointerHandlers = mergeHandlers(sliderHandlers, knobHandlers);
+    const leverHandlers = useLever(scene);
+    const pointerHandlers = mergeHandlers(sliderHandlers, knobHandlers, leverHandlers);
 
     useDollyShot(dollyCamera, dollyObject, () => {
         setDollyCamera(null);

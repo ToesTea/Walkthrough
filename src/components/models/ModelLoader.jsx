@@ -114,7 +114,13 @@ function ModelLoader({ onAnimationStateChange }) {
         path={`${STATIC_MODEL_PATH}/Teleprompter.glb`}
         onClick={(clickedNode, modelData) => handleModelClick(clickedNode, modelData)}
       />
-       
+
+      <Model
+        position={[-.5, .6, -5]}
+        rotation={[0, Math.PI, 0]}
+        path={`${STATIC_MODEL_PATH}/Videomischer.glb`}
+        onClick={(clickedNode, modelData) => handleModelClick(clickedNode, modelData)}
+      />
       {/*<Model
         position={[-3.5, 0, -5.5]}
         rotation={[0, 100, 0]}
